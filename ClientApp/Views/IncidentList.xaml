@@ -5,11 +5,41 @@
              xmlns:view="clr-namespace:ClientApp.Views"
              xmlns:viewmodel="clr-namespace:ClientApp.Viewmodels"
              x:DataType="viewmodel:IncidentListViewmodel"
+             xmlns:models="clr-namespace:ClientApp.Models"
              Title="IncidentList">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid>
+        <CollectionView ItemsSource="{Binding Incidents}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Incident">
+                    <Grid Padding="0,5">
+                        <Frame HeightRequest="120">
+                            <StackLayout>
+                                <!--     <Label Text="{Binding .}" FontAttributes="Bold"  /> -->
+                                <Label Text="Status: " FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
+                                <Label Text="{Binding Status}"
+                                       FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold" />
+                                <Label Text="{Binding Description }"
+                                       FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
+                                <Label Text="Reported on: " FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
+                                <Label Text="{Binding CreatedAt, StringFormat='{0:dd/MM/yyyy}'}" FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
+                                
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <ImageButton Source="fab_icon.png"
+             Command="{Binding CreateIncidentCommand}"
+             HorizontalOptions="End"
+             VerticalOptions="End"
+             Margin="0,0,16,16"
+             WidthRequest="56"
+             HeightRequest="56"
+             BackgroundColor="#2196F3"
+             CornerRadius="28"
+             AutomationId="fabButton" />
+    </Grid>
 </ContentPage>

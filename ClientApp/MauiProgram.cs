@@ -18,6 +18,9 @@ namespace ClientApp
 
             builder.Services.AddSingleton<HttpClient>(httpClient);
             builder.Services.AddSingleton<IRemoteApiService, RemoteApiService>();
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<MainPageVM>();
+
             builder.Services.AddSingleton<IncidentList>();
             builder.Services.AddSingleton<IncidentListViewmodel>();
             builder.Services.AddTransient<IncidentDetails>();
