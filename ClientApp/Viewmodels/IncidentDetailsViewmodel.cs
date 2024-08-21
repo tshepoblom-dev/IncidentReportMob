@@ -22,34 +22,36 @@ namespace ClientApp.Viewmodels
         {
             _remoteApiService = remoteApiService;
             IncidentCategories = new ObservableCollection<IncidentCategory>();
-            UploadedMedia = new ObservableCollection<IncidentMedia>();
+            UploadedMedia = new ObservableCollection<byte[]>();
 
             LoadIncidentCategories();
         }
 
         [ObservableProperty]
-        private ObservableCollection<IncidentCategory> incidentCategories;
+        private ObservableCollection<IncidentCategory>? incidentCategories;
 
         [ObservableProperty]
-        private IncidentCategory selectedIncidentCategory;
+        private IncidentCategory? selectedIncidentCategory;
 
         [ObservableProperty]
-        private string description;
+        private string? description;
 
         [ObservableProperty]
-        private string address;
+        private string? address;
 
         [ObservableProperty]
-        private ObservableCollection<IncidentMedia> uploadedMedia;
+        private string? gps_latitude;
 
-        [RelayCommand]
-        private async Task LoadIncidentCategories()
+        [ObservableProperty]
+        private string? gps_longitude;
+
+        [ObservableProperty]
+        private ObservableCollection<byte[]> uploadedMedia = new ObservableCollection<byte[]>();
+
+        private async void LoadIncidentCategories()
         {
-            var categories = await _remoteApiService.GetIncidentCategoriesAsync();
-            foreach (var category in categories)
-            {
-                IncidentCategories.Add(category);
-            }
+
+            IncidentCategories = new ObservableCollection<IncidentCategory>(await _remoteApiService.GetIncidentCategoriesAsync() ?? new ObservableCollection<IncidentCategory>());
         }
 
         [RelayCommand]
@@ -61,40 +63,40 @@ namespace ClientApp.Viewmodels
             // not sure of this
             foreach (var file in filePickerResult)
             {
-                var incidentMedia = new IncidentMedia
-                {
-                    Content = File.ReadAllBytes(file.FullPath),
-                    ImageSource = ImageSource.FromStream(() => new MemoryStream(File.ReadAllBytes(file.FullPath)))
-                };
-                UploadedMedia.Add(incidentMedia);
+                UploadedMedia.Add(File.ReadAllBytes(file.FullPath));
             } 
         }
 
         [RelayCommand]
         private async Task SubmitIncident()
         {
-            var incident = new Incident
+            try
             {
-                IncidentCategoryId = SelectedIncidentCategory.Id,
-                Description = Description,
-                Address = Address,
-
-            };
-
-            var isSuccess = await _remoteApiService.CreateIncidentAsync(incident);
-
-            if (isSuccess) {
-                try
+                var incident = new IncidentVm
                 {
-                    // Navigate back to the IncidentList view 
-                    //await Shell.Current.GoToAsync(nameof(IncidentList));
-                    await Shell.Current.GoToAsync("..");
+                    IncidentCategoryId = SelectedIncidentCategory?.Id,
+                    Description = Description,
+                    Address = Address,
+                    CreatedAt = DateTime.UtcNow,
+                    GPSLocation_Latitude = Gps_latitude,
+                    GPSLocation_Longitude = Gps_longitude,
+                    IncidentFilesBytes = new List<byte[]>(UploadedMedia ?? new ObservableCollection<byte[]>())
+                };
+
+                var isSuccess = await _remoteApiService.CreateIncidentAsync(incident);
+
+                if (isSuccess) {
+            
+                        // Navigate back to the IncidentList view 
+                        //await Shell.Current.GoToAsync(nameof(IncidentList));
+                        await Shell.Current.GoToAsync("..");
+              
                 }
+            }
             catch (Exception e)
-                {
-                    Debug.WriteLine(e.InnerException);
-                   
-                }
+            {
+                Debug.WriteLine(e.InnerException);
+
             }
         }
     }

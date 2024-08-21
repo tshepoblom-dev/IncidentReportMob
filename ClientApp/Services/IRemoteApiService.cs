@@ -9,10 +9,10 @@ namespace ClientApp.Services
 {
     public interface IRemoteApiService
     {
-        Task<IEnumerable<Incident>> GetAllIncidentsAsync();
+        Task<IEnumerable<Incident>?> GetAllIncidentsAsync();
         
-        Task<bool> CreateIncidentAsync(Incident incident);
+        Task<bool> CreateIncidentAsync(IncidentVm incident);
 
-        Task<IEnumerable<IncidentCategory>> GetIncidentCategoriesAsync();
+        Task<IEnumerable<IncidentCategory>?> GetIncidentCategoriesAsync();
     }
 }

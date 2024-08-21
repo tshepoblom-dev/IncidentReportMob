@@ -16,32 +16,28 @@ namespace ClientApp.Viewmodels
     public partial class IncidentListViewmodel :  ObservableObject
     {
         
-        public IncidentListViewmodel(IRemoteApiService remoteApiService,
-             IncidentDetailsViewmodel incidentDetailsViewmodel) 
+        public IncidentListViewmodel(IRemoteApiService remoteApiService) 
         {
             _remoteApiService = remoteApiService;
-            _incidentDetailsViewmodel = incidentDetailsViewmodel;
             Incidents = new ObservableCollection<Incident>();
             
-            //Init();
+            Init();
         }
 
         [ObservableProperty]
-        ObservableCollection<Incident> incidents;
+        ObservableCollection<Incident>? incidents;
+
+        [ObservableProperty]
+        Incident? selectedIncident;
 
         private IRemoteApiService _remoteApiService;
-        private IncidentDetailsViewmodel _incidentDetailsViewmodel;
 
         async void Init()
         {
             try
             {
-                //Incidents = new ObservableCollection<Incident>(await _remoteApiService.GetAllIncidentsAsync() ?? new ObservableCollection<Incident>());
-                //await Shell.Current.GoToAsync(nameof(IncidentDetails));
-
                 var incidents = await _remoteApiService.GetAllIncidentsAsync();
                 Incidents = new ObservableCollection<Incident>(incidents ?? new List<Incident>());
-
             }
             catch (Exception ex)
             {

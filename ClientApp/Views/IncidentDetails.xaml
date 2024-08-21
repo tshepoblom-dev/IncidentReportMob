@@ -13,6 +13,7 @@
             <Label Text="Incident Category:" VerticalTextAlignment="Start"/>
             <Picker ItemsSource="{Binding IncidentCategories}" 
                     SelectedItem="{Binding SelectedIncidentCategory}" 
+                    ItemDisplayBinding="{Binding Name}"
                     Title="Select Category"/>
 
             <!-- Incident Description -->

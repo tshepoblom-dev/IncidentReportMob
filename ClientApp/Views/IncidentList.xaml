@@ -8,7 +8,7 @@
              xmlns:models="clr-namespace:ClientApp.Models"
              Title="IncidentList">
     <Grid>
-        <CollectionView ItemsSource="{Binding Incidents}">
+        <CollectionView ItemsSource="{Binding Incidents}" SelectedItem="{Binding SelectedIncident}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Incident">
                     <Grid Padding="0,5">
