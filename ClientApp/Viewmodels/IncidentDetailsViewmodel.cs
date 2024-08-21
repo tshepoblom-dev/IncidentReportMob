@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ClientApp.Viewmodels
 {
     public partial class IncidentDetailsViewmodel : ObservableObject
@@ -25,6 +26,7 @@ namespace ClientApp.Viewmodels
             UploadedMedia = new ObservableCollection<byte[]>();
 
             LoadIncidentCategories();
+            GetLocation();
         }
 
         [ObservableProperty]
@@ -82,7 +84,7 @@ namespace ClientApp.Viewmodels
                     GPSLocation_Longitude = Gps_longitude,
                     IncidentFilesBytes = new List<byte[]>(UploadedMedia ?? new ObservableCollection<byte[]>())
                 };
-
+              
                 var isSuccess = await _remoteApiService.CreateIncidentAsync(incident);
 
                 if (isSuccess) {
@@ -98,6 +100,53 @@ namespace ClientApp.Viewmodels
                 Debug.WriteLine(e.InnerException);
 
             }
+        }
+        
+        async void GetLocation()
+        {
+            var location = await GetCurrentLocationAsync();
+            if (location != null)
+            {
+                this.Gps_latitude = location.Latitude.ToString();
+                this.Gps_longitude = location.Longitude.ToString();
+            }
+        }
+        public async Task<Location?> GetCurrentLocationAsync()
+        {
+            try
+            {
+                // Request permission to access location
+                var locationPermission = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                if (locationPermission != PermissionStatus.Granted)
+                {
+                    // Permission was not granted, handle appropriately
+                    return null;
+                }
+
+                // Get the current location
+                //var location = await Geolocation.GetLastKnownLocationAsync();
+                var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                var location = await Geolocation.Default.GetLocationAsync(request);
+                           
+                return location;
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+                Debug.WriteLine(fnsEx.InnerException);
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+                Debug.WriteLine(pEx.InnerException);
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                Debug.WriteLine(ex.InnerException);
+            }
+
+            return null;
         }
     }
 }
