@@ -21,12 +21,12 @@
 
             <!-- Upload Image/File -->
             <Label Text="Upload Image/File:" VerticalTextAlignment="Start"/>
-            <Button Text="Upload Files" Command="{Binding UploadCommand}" />
+            <Button Text="Upload Files" Command="{Binding UploadFilesCommand}" />
 
             <CollectionView ItemsSource="{Binding UploadedMedia}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="100"/>
+                        <Image Source="{Binding UploadFilesCommand}" HeightRequest="100" WidthRequest="100"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
@@ -37,7 +37,7 @@
 
             <!-- Submit Button -->
             <Button Text="Submit"
-                    Command="{Binding SubmitCommand}"
+                    Command="{Binding SubmitIncidentCommand}"
                     Padding="10"
                     HorizontalOptions="Center"/>
         </StackLayout>

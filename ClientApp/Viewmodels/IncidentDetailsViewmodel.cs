@@ -85,7 +85,8 @@ namespace ClientApp.Viewmodels
                 try
                 {
                     // Navigate back to the IncidentList view 
-                    await Shell.Current.GoToAsync(nameof(IncidentList));
+                    //await Shell.Current.GoToAsync(nameof(IncidentList));
+                    await Shell.Current.GoToAsync("..");
                 }
             catch (Exception e)
                 {
