@@ -11,6 +11,6 @@ namespace ClientApp.Models
         public int Id { get; set; }
         public byte[]? Content { get; set; }
         public int? IncidentId { get; set; }
-
+        public ImageSource? ImageSource { get; internal set; } //not sure about this
     }
 }

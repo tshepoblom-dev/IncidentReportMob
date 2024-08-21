@@ -23,7 +23,7 @@ namespace ClientApp.Viewmodels
             _incidentDetailsViewmodel = incidentDetailsViewmodel;
             Incidents = new ObservableCollection<Incident>();
             
-            Init();
+            //Init();
         }
 
         [ObservableProperty]
@@ -36,23 +36,28 @@ namespace ClientApp.Viewmodels
         {
             try
             {
-                Incidents = new ObservableCollection<Incident>(await _remoteApiService.GetAllIncidentsAsync() ?? new ObservableCollection<Incident>());
-               
+                //Incidents = new ObservableCollection<Incident>(await _remoteApiService.GetAllIncidentsAsync() ?? new ObservableCollection<Incident>());
+                //await Shell.Current.GoToAsync(nameof(IncidentDetails));
+
+                var incidents = await _remoteApiService.GetAllIncidentsAsync();
+                Incidents = new ObservableCollection<Incident>(incidents ?? new List<Incident>());
+
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.InnerException);
             }
-        }
+        } 
 
         [RelayCommand]
         async Task CreateIncidentAsync()
         {
             try
             {
-                ObservableCollection<IncidentDetails> incidentDetails = new ObservableCollection<IncidentDetails>((IEnumerable<IncidentDetails>)await _remoteApiService.GetAllIncidentsAsync());
+                //ObservableCollection<IncidentDetails> incidentDetails = new ObservableCollection<IncidentDetails>((IEnumerable<IncidentDetails>)await _remoteApiService.GetAllIncidentsAsync());
 
-                
+                await Shell.Current.GoToAsync(nameof(IncidentDetails));
+
             }
             catch (Exception e)
             {

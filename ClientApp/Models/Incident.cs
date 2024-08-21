@@ -19,5 +19,6 @@ namespace ClientApp.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; set; }
         public IncidentStatus Status { get; set; } = IncidentStatus.Pending;
+        public List<IncidentMedia>? MediaFiles { get; set; } = new List<IncidentMedia>();
     }
 }

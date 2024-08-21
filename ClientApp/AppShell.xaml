@@ -12,7 +12,9 @@
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-    
+
     <ShellContent Route="IncidentList" ContentTemplate="{DataTemplate views:IncidentList}" />
+
+    <ShellContent Route="IncidentDetails" ContentTemplate="{DataTemplate views:IncidentDetails}" />
 
 </Shell>

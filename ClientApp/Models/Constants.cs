@@ -8,6 +8,6 @@ namespace ClientApp.Models
 {
     public static class Constants
     {
-        public const string URL = "https://2ff8-41-1-139-155.ngrok-free.app";//web admin url
+        public const string URL = "https://0f7c-41-1-139-155.ngrok-free.app";//web admin url
     }
 }

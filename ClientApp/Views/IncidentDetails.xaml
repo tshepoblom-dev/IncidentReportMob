@@ -6,10 +6,40 @@
              xmlns:viewmodel="clr-namespace:ClientApp.Viewmodels"
              x:DataType="viewmodel:IncidentDetailsViewmodel"
              Title="IncidentDetails">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView x:Name="scrollV">
+        <StackLayout>
+
+            <!-- Incident Category -->
+            <Label Text="Incident Category:" VerticalTextAlignment="Start"/>
+            <Picker ItemsSource="{Binding IncidentCategories}" 
+                    SelectedItem="{Binding SelectedIncidentCategory}" 
+                    Title="Select Category"/>
+
+            <!-- Incident Description -->
+            <Label Text="Incident Description:" VerticalTextAlignment="Start"/>
+            <Editor Text="{Binding Description}" Placeholder="Enter description" />
+
+            <!-- Upload Image/File -->
+            <Label Text="Upload Image/File:" VerticalTextAlignment="Start"/>
+            <Button Text="Upload Files" Command="{Binding UploadCommand}" />
+
+            <CollectionView ItemsSource="{Binding UploadedMedia}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding ImageSource}" HeightRequest="100" WidthRequest="100"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Address/Location -->
+            <Label Text="Address/Location:" VerticalTextAlignment="Start"/>
+            <Entry Text="{Binding Address}" Placeholder="Enter address or location"/>
+
+            <!-- Submit Button -->
+            <Button Text="Submit"
+                    Command="{Binding SubmitCommand}"
+                    Padding="10"
+                    HorizontalOptions="Center"/>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

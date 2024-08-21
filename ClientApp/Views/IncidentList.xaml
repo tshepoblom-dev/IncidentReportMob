@@ -14,7 +14,7 @@
                     <Grid Padding="0,5">
                         <Frame HeightRequest="120">
                             <StackLayout>
-                                <!--     <Label Text="{Binding .}" FontAttributes="Bold"  /> -->
+                                
                                 <Label Text="Status: " FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
                                 <Label Text="{Binding Status}"
                                        FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold" />
@@ -31,14 +31,14 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <ImageButton Source="fab_icon.png"
+        <Button Text="Report New Incident"
              Command="{Binding CreateIncidentCommand}"
              HorizontalOptions="End"
              VerticalOptions="End"
              Margin="0,0,16,16"
-             WidthRequest="56"
+             WidthRequest="200"
              HeightRequest="56"
-             BackgroundColor="#2196F3"
+             BackgroundColor="GreenYellow"
              CornerRadius="28"
              AutomationId="fabButton" />
     </Grid>
