@@ -57,6 +57,8 @@ namespace ClientApp.Viewmodels
         {
             // Code to open file picker and add selected files to UploadedMedia collection
             var filePickerResult = await FilePicker.PickMultipleAsync();
+           
+            // not sure of this
             foreach (var file in filePickerResult)
             {
                 var incidentMedia = new IncidentMedia
@@ -65,7 +67,7 @@ namespace ClientApp.Viewmodels
                     ImageSource = ImageSource.FromStream(() => new MemoryStream(File.ReadAllBytes(file.FullPath)))
                 };
                 UploadedMedia.Add(incidentMedia);
-            }
+            } 
         }
 
         [RelayCommand]
