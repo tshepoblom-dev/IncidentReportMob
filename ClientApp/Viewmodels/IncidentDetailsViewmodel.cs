@@ -50,6 +50,8 @@ namespace ClientApp.Viewmodels
         [ObservableProperty]
         private ObservableCollection<byte[]> uploadedMedia = new ObservableCollection<byte[]>();
 
+        [ObservableProperty]
+        private ObservableCollection<ImageSource?> images = new ObservableCollection<ImageSource?>();
         private async void LoadIncidentCategories()
         {
 
@@ -65,7 +67,9 @@ namespace ClientApp.Viewmodels
             // not sure of this
             foreach (var file in filePickerResult)
             {
-                UploadedMedia.Add(File.ReadAllBytes(file.FullPath));
+                var _bytes = File.ReadAllBytes(file.FullPath);
+                UploadedMedia.Add(_bytes);
+                Images.Add(ConvertByteArrayToImageSource(_bytes));
             } 
         }
 
@@ -86,22 +90,31 @@ namespace ClientApp.Viewmodels
                 };
               
                 var isSuccess = await _remoteApiService.CreateIncidentAsync(incident);
-
+/*
                 if (isSuccess) {
             
                         // Navigate back to the IncidentList view 
                         //await Shell.Current.GoToAsync(nameof(IncidentList));
                         await Shell.Current.GoToAsync("..");
               
-                }
+                }*/
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.InnerException);
 
             }
+            await Shell.Current.GoToAsync("..");
         }
-        
+
+        public ImageSource? ConvertByteArrayToImageSource(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+            {
+                return null; // Handle the case when imageData is null or empty
+            }
+            return ImageSource.FromStream(() => new MemoryStream(imageData));
+        }
         async void GetLocation()
         {
             var location = await GetCurrentLocationAsync();

@@ -25,10 +25,10 @@
             <Label Text="Upload Image/File:" VerticalTextAlignment="Start"/>
             <Button Text="Upload Files" Command="{Binding UploadFilesCommand}" />
 
-            <CollectionView ItemsSource="{Binding UploadedMedia}">
+            <CollectionView ItemsSource="{Binding Images}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding UploadFilesCommand}" HeightRequest="100" WidthRequest="100"/>
+                        <Image Source="{Binding .}" HeightRequest="100" WidthRequest="100"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
