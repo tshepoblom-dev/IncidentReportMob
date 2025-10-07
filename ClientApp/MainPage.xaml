@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:ClientApp.Viewmodels"
-             x:Class="ClientApp.MainPage">
+             xmlns:models="clr-namespace:ClientApp.Models"
+             x:Class="ClientApp.MainPage"
+             x:DataType="vm:MainPageVM">
     <ContentPage.BindingContext>
         <vm:MainPageVM />
     </ContentPage.BindingContext>
