@@ -2,44 +2,112 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ClientApp.Views.IncidentList"
-             xmlns:view="clr-namespace:ClientApp.Views"
              xmlns:viewmodel="clr-namespace:ClientApp.Viewmodels"
-             x:DataType="viewmodel:IncidentListViewmodel"
              xmlns:models="clr-namespace:ClientApp.Models"
-             Title="IncidentList">
-    <Grid>
-        <CollectionView ItemsSource="{Binding Incidents}" SelectedItem="{Binding SelectedIncident}">
+             xmlns:converters="clr-namespace:ClientApp.Converters"
+             x:DataType="viewmodel:IncidentListViewmodel"
+             Title="Incident Reports"
+             BackgroundColor="#F7F9FC">
+
+    <ContentPage.Resources>
+        <!-- Color palette -->
+        <Color x:Key="PrimaryBlue">#2196F3</Color>
+        <Color x:Key="SuccessGreen">#4CAF50</Color>
+        <Color x:Key="AlertRed">#F44336</Color>
+        <Color x:Key="NeutralGray">#E0E0E0</Color>
+        <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,Auto" Padding="10">
+        <!-- Incident list -->
+        <CollectionView 
+            ItemsSource="{Binding Incidents}" 
+            SelectedItem="{Binding SelectedIncident}" 
+            SelectionMode="None">
+            <CollectionView.EmptyView>
+                <StackLayout Padding="40" Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="no_data.svg" WidthRequest="120" HeightRequest="120" />
+                    <Label Text="No incidents reported yet."
+                           FontSize="16"
+                           TextColor="Gray"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+            </CollectionView.EmptyView>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Incident">
-                    <Grid Padding="0,5">
-                        <Frame HeightRequest="120">
-                            <StackLayout>
-                                
-                                <Label Text="Status: " FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
-                                <Label Text="{Binding Status}"
-                                       FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold" />
-                                <Label Text="{Binding Description }"
-                                       FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
-                                <Label Text="Reported on: " FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
-                                <Label Text="{Binding CreatedAt, StringFormat='{0:dd/MM/yyyy}'}" FontSize="12" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"/>
-                                
-                            </StackLayout>
-                        </Frame>
-                    </Grid>
+                    <Frame CornerRadius="16"
+                           Margin="0,8"
+                           Padding="16"
+                           HasShadow="True"
+                           BackgroundColor="White"
+                           BorderColor="{StaticResource NeutralGray}">
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                            <!-- Type and Status -->
+                            <Label Text="{Binding IncidentCategory.Name}"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource PrimaryBlue}"
+                                   Grid.Row="0" />
 
+                            <!-- Status badge -->
+                            <Frame Grid.Row="0"
+                                   Grid.Column="1"
+                                   CornerRadius="12"
+                                   Padding="6,2"
+                                   BackgroundColor="{Binding Status, Converter={StaticResource StatusToColorConverter}}">
+                                <Label Text="{Binding Status}"
+                                       FontSize="12"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Frame>
+
+                            <!-- Description -->
+                            <Label Text="{Binding Description}"
+                                   FontSize="14"
+                                   TextColor="#333"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="2"
+                                   LineBreakMode="WordWrap"
+                                   Margin="0,6,0,0"/>
+
+                            <!-- Location -->
+                            <Label Text="{Binding Address}"
+                                   FontSize="13"
+                                   TextColor="Gray"
+                                   Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   Margin="0,2,0,0"/>
+
+                            <!-- Date -->
+                            <Label Text="{Binding CreatedAt, StringFormat='Reported on {0:dd MMM yyyy HH:mm}'}"
+                                   FontSize="12"
+                                   TextColor="#666"
+                                   Grid.Row="3"
+                                   Grid.ColumnSpan="2"
+                                   Margin="0,4,0,0"/>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Text="Report New Incident"
-             Command="{Binding CreateIncidentCommand}"
-             HorizontalOptions="End"
-             VerticalOptions="End"
-             Margin="0,0,16,16"
-             WidthRequest="200"
-             HeightRequest="56"
-             BackgroundColor="GreenYellow"
-             CornerRadius="28"
-             AutomationId="fabButton" />
+        <!-- Floating action button -->
+        <Button 
+            Text="＋ Report New Incident"
+            Command="{Binding CreateIncidentCommand}"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Margin="0,0,10,20"
+            WidthRequest="230"
+            HeightRequest="58"
+            CornerRadius="29"
+            BackgroundColor="{StaticResource PrimaryBlue}"
+            TextColor="White"
+            FontAttributes="Bold"
+            SemanticProperties.Hint="Create a new incident report" />
+
+        <!--Shadow="20"-->
     </Grid>
 </ContentPage>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientApp.Views.Dashboard"
+             xmlns:viewmodel="clr-namespace:ClientApp.Viewmodels"
+             x:DataType="viewmodel:DashboardViewmodel"
+             Title="Dashboard">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+            <Label Text="Welcome Enumerator 👋"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto" RowSpacing="20" ColumnSpacing="20">
+
+                <!-- Household Capture -->
+                <Frame Grid.Row="0" Grid.Column="0" Padding="20" CornerRadius="15">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image Source="household.svg" Aspect="AspectFit" HeightRequest="120"/>
+                        <Label Text="Households" TextColor="#22c55e" FontSize="18" HorizontalOptions="Center"/>
+                        <Button Text="Open"
+                                Command="{Binding GoToHouseholdCommand}"
+                                BackgroundColor="#22c55e"
+                                TextColor="White"
+                                CornerRadius="10"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Incident Capture -->
+                <Frame Grid.Row="0" Grid.Column="1" Padding="20" CornerRadius="15" >
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image Source="incident.svg" Aspect="AspectFit" HeightRequest="120"/>
+                        <Label Text="Incidents" FontAttributes="Bold" TextColor="#f97316" FontSize="18" HorizontalOptions="Center"/>
+                        <Button Text="Open"
+                                BorderColor="#f97316"
+                                Command="{Binding GoToIncidentCommand}"
+                                BackgroundColor="#f97316"
+                                TextColor="#fff"
+                                FontAttributes="Bold"
+                                CornerRadius="10"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Profile -->
+                <Frame Grid.Row="1" Grid.Column="0" Padding="20" CornerRadius="15">
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image Source="profile.svg" Aspect="AspectFit" HeightRequest="120"/>
+                        <Label Text="My Profile" TextColor="#3b82f6" FontSize="18" HorizontalOptions="Center"/>
+                        <Button Text="View"
+                                Command="{Binding GoToProfileCommand}"
+                                BackgroundColor="#3b82f6"
+                                TextColor="White"
+                                CornerRadius="10"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Logout -->
+                <Frame Grid.Row="1" Grid.Column="1" Padding="20" CornerRadius="15" >
+                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image Source="logout.svg" Aspect="AspectFit" HeightRequest="120"/>
+                        <Label Text="Logout" TextColor="#ef4444" FontSize="18" HorizontalOptions="Center"/>
+                        <Button Text="Sign Out"
+                                Command="{Binding LogoutCommand}"
+                                BackgroundColor="#ef4444"
+                                TextColor="White"
+                                CornerRadius="10"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

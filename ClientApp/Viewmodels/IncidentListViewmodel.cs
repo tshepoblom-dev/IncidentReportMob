@@ -14,8 +14,7 @@ using System.Threading.Tasks;
 namespace ClientApp.Viewmodels
 {
     public partial class IncidentListViewmodel :  ObservableObject
-    {
-        
+    {        
         public IncidentListViewmodel(IRemoteApiService remoteApiService) 
         {
             _remoteApiService = remoteApiService;
@@ -52,7 +51,7 @@ namespace ClientApp.Viewmodels
             {
                 //ObservableCollection<IncidentDetails> incidentDetails = new ObservableCollection<IncidentDetails>((IEnumerable<IncidentDetails>)await _remoteApiService.GetAllIncidentsAsync());
 
-                await Shell.Current.GoToAsync(nameof(IncidentDetails));
+                await Shell.Current.GoToAsync("//AddIncidentPage");
 
             }
             catch (Exception e)

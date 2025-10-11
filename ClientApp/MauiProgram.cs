@@ -18,13 +18,17 @@ namespace ClientApp
 
             builder.Services.AddSingleton<HttpClient>(httpClient);
             builder.Services.AddSingleton<IRemoteApiService, RemoteApiService>();
+            builder.Services.AddSingleton<IApiService, ApiService>();
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainPageVM>();
-
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<Dashboard>();
+            builder.Services.AddSingleton<DashboardViewmodel>();
             builder.Services.AddSingleton<IncidentList>();
             builder.Services.AddSingleton<IncidentListViewmodel>();
             builder.Services.AddTransient<IncidentDetails>();
             builder.Services.AddTransient<IncidentDetailsViewmodel>();
+            builder.Services.AddTransient<AddIncidentPage>();
+            builder.Services.AddTransient<AddIncidentViewmodel>();
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>

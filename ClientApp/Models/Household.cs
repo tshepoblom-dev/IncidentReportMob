@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClientApp.Models
 {
-    public static class Constants
+    internal class Household
     {
-        public const string URL = "https://cfabc616d907.ngrok-free.app";
     }
 }

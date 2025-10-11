@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ClientApp.Viewmodels"
+             xmlns:converters="clr-namespace:ClientApp.Converters"
+             x:DataType="viewmodel:AddIncidentViewmodel"
+             x:Class="ClientApp.Views.AddIncidentPage"
+             Title="Report Incident"
+             BackgroundColor="#F2F5F8">
+
+    <ContentPage.Resources>
+        <!-- 🎨 Theme Colors -->
+        <Color x:Key="PrimaryBlue">#1976D2</Color>
+        <Color x:Key="AccentGreen">#4CAF50</Color>
+        <Color x:Key="DangerRed">#E53935</Color>
+        <Color x:Key="CardBackground">#FFFFFF</Color>
+
+        <converters:StepToColorConverter x:Key="StepToColorConverter"/>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="16">
+
+        <!-- 🔹 Step Indicators -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,8">
+            <Ellipse WidthRequest="12" HeightRequest="12"
+                     Fill="{Binding Step, Converter={StaticResource StepToColorConverter}, ConverterParameter=0}" />
+            <Ellipse WidthRequest="12" HeightRequest="12"
+                     Fill="{Binding Step, Converter={StaticResource StepToColorConverter}, ConverterParameter=1}" />
+            <Ellipse WidthRequest="12" HeightRequest="12"
+                     Fill="{Binding Step, Converter={StaticResource StepToColorConverter}, ConverterParameter=2}" />
+            <Ellipse WidthRequest="12" HeightRequest="12"
+                     Fill="{Binding Step, Converter={StaticResource StepToColorConverter}, ConverterParameter=3}" />
+        </StackLayout>
+
+        <!-- 🔸 Main Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="20" Padding="10">
+
+                <!-- STEP 1: Incident Details -->
+                <Frame x:Name="Step1Frame"
+                       IsVisible="{Binding IsStep1}"
+                       CornerRadius="16"
+                       BackgroundColor="{StaticResource CardBackground}"
+                       HasShadow="True"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="Incident Details" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource PrimaryBlue}" />
+
+                        <Label Text="Type of Incident" FontAttributes="Bold" />
+                        <Picker Title="Select type"
+                                ItemsSource="{Binding Categories}"
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding SelectedCategory}"
+                                BackgroundColor="#F5F5F5"
+                                HeightRequest="44"
+                                Margin="0,0,0,8"/>
+
+                        <Label Text="Description" FontAttributes="Bold"/>
+                        <Editor Placeholder="Describe what happened..."
+                                AutoSize="TextChanges"
+                                BackgroundColor="#F5F5F5"
+                                Text="{Binding Description}"
+                                Margin="0,0,0,8" />
+
+                        <Label Text="Address / Landmark" FontAttributes="Bold"/>
+                        <Editor Placeholder="Enter address or landmark"
+                                AutoSize="TextChanges"
+                                BackgroundColor="#F5F5F5"
+                                Text="{Binding Address}" />
+
+                        <Label Text="{Binding CreatedAt, StringFormat='Reported on: {0:dd MMM yyyy, HH:mm}'}"
+                               FontSize="12" TextColor="Gray" HorizontalOptions="End" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- STEP 2: Media Capture -->
+                <Frame x:Name="Step2Frame"
+                       IsVisible="{Binding IsStep2}"
+                       CornerRadius="16"
+                       BackgroundColor="{StaticResource CardBackground}"
+                       HasShadow="True"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="Attach Media" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource PrimaryBlue}" />
+                        <Button Text="📷  Capture Photo"
+                                Command="{Binding CapturePhotoCommand}"
+                                BackgroundColor="{StaticResource PrimaryBlue}"
+                                TextColor="White"
+                                CornerRadius="10" />
+
+                        <Image Source="{Binding CapturedImage}"
+                               HeightRequest="200"
+                               Aspect="AspectFill"
+                               Margin="0,10"
+                               IsVisible="{Binding HasImage}" />
+
+                        <Label Text="You can take a photo of the scene or any relevant document."
+                               FontSize="12"
+                               TextColor="Gray" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- STEP 3: Location -->
+                <Frame x:Name="Step3Frame"
+                       IsVisible="{Binding IsStep3}"
+                       CornerRadius="16"
+                       BackgroundColor="{StaticResource CardBackground}"
+                       HasShadow="True"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="Incident Location" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource PrimaryBlue}" />
+                        <Button Text="📍 Get Current Location"
+                                Command="{Binding GetLocationCommand}"
+                                BackgroundColor="{StaticResource AccentGreen}"
+                                TextColor="White"
+                                CornerRadius="10" />
+
+                        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" Margin="0,10">
+                            <Label Text="Latitude:" Grid.Row="0" FontAttributes="Bold"/>
+                            <Label Text="{Binding GpsLocation_Latitude}" Grid.Row="0" Grid.Column="1" TextColor="Gray" />
+                            <Label Text="Longitude:" Grid.Row="1" FontAttributes="Bold"/>
+                            <Label Text="{Binding GpsLocation_Longitude}" Grid.Row="1" Grid.Column="1" TextColor="Gray" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- STEP 4: Review -->
+                <Frame x:Name="Step4Frame"
+                       IsVisible="{Binding IsStep4}"
+                       CornerRadius="16"
+                       BackgroundColor="{StaticResource CardBackground}"
+                       HasShadow="True"
+                       Padding="20">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Review and Submit" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource PrimaryBlue}" />
+                        <BoxView HeightRequest="1" BackgroundColor="#EEEEEE" Margin="0,4"/>
+
+                        <Label Text="Incident Type" FontAttributes="Bold" />
+                        <Label Text="{Binding SelectedCategory.Name}" TextColor="Gray"/>
+
+                        <Label Text="Description" FontAttributes="Bold" />
+                        <Label Text="{Binding Description}" TextColor="Gray"/>
+
+                        <Label Text="Address" FontAttributes="Bold" />
+                        <Label Text="{Binding Address}" TextColor="Gray"/>
+
+                        <Label Text="Location" FontAttributes="Bold" />
+                        <Label Text="{Binding LocationSummary}" TextColor="Gray"/>
+
+                        <Image Source="{Binding CapturedImage}"
+                               HeightRequest="180"
+                               Aspect="AspectFill"
+                               Margin="0,10,0,0"
+                               IsVisible="{Binding HasImage}" />
+
+                        <Button Text="✅ Submit Now"
+                                Command="{Binding SubmitCommand}"
+                                BackgroundColor="{StaticResource AccentGreen}"
+                                TextColor="White"
+                                CornerRadius="12"
+                                HeightRequest="50"
+                                Margin="0,10,0,0" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- 🔻 Navigation Buttons -->
+        <Grid Grid.Row="2" Padding="0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Text="⬅"
+                    Command="{Binding PreviousCommand}"
+                    IsEnabled="{Binding CanGoBack}"
+                    BackgroundColor="{StaticResource DangerRed}"
+                    TextColor="White"
+                    CornerRadius="50"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    Grid.Column="0"
+                    HorizontalOptions="Start" />
+
+            <Button Text="➡"
+                    Command="{Binding NextCommand}"
+                    BackgroundColor="{StaticResource PrimaryBlue}"
+                    TextColor="White"
+                    CornerRadius="50"
+                    WidthRequest="60"
+                    HeightRequest="60"
+                    Grid.Column="1"
+                    HorizontalOptions="End" />
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -14,7 +14,8 @@
         Route="MainPage" />
 
     <ShellContent Route="IncidentList" ContentTemplate="{DataTemplate views:IncidentList}" />
-
     <ShellContent Route="IncidentDetails" ContentTemplate="{DataTemplate views:IncidentDetails}" />
+    <ShellContent Route="Dashboard" ContentTemplate="{DataTemplate views:Dashboard}"/>
+    <ShellContent Route="AddIncidentPage" ContentTemplate="{DataTemplate views:AddIncidentPage}"/>
 
 </Shell>

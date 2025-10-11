@@ -4,15 +4,12 @@
              xmlns:vm="clr-namespace:ClientApp.Viewmodels"
              xmlns:models="clr-namespace:ClientApp.Models"
              x:Class="ClientApp.MainPage"
-             x:DataType="vm:MainPageVM">
-    <ContentPage.BindingContext>
-        <vm:MainPageVM />
-    </ContentPage.BindingContext>
-
+             x:DataType="vm:MainPageViewModel">
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+             Padding="40" Spacing="20">
+
+            <Label Text="Bore Consulting" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
 
             <Label
                 Text="Welcome Back!"
@@ -24,14 +21,17 @@
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level4"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
-            <Entry Text="Email"/>
-            <Entry Text="Password"/>
-
+            <Entry Placeholder="Email" Text="{Binding Email}" />
+            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
             <Button
                 x:Name="LoginBtn"
                 Text="Login" 
                 Command="{Binding LoginCommand}"
                 HorizontalOptions="Fill" />
+
+            <Label Text="{Binding LoginError}" TextColor="Red" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+            <!--
             <Label
                  Text="OR"
                  Style="{StaticResource Headline}"
@@ -54,7 +54,7 @@
                 x:Name="RegisterBtn"
                 Text="Register" 
                 
-                HorizontalOptions="Fill" />
+                HorizontalOptions="Fill" /> -->
         </VerticalStackLayout>
     </ScrollView>
 

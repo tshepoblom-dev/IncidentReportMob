@@ -1,11 +1,12 @@
-﻿namespace ClientApp
+﻿using ClientApp.Viewmodels;
+
+namespace ClientApp
 {
     public partial class MainPage : ContentPage
     {
-        
-
-        public MainPage()
+        public MainPage(MainPageViewModel mainPageViewModel)
         {
+            BindingContext = mainPageViewModel;
             InitializeComponent();
         }
 
