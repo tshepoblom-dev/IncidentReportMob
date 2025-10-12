@@ -14,7 +14,7 @@ namespace ClientApp.Viewmodels
         [RelayCommand]
         public async Task GoToHouseholdAsync()
         {
-            await Shell.Current.GoToAsync(nameof(Dashboard));
+            await Shell.Current.GoToAsync(nameof(HouseholdList));
         }
 
         [RelayCommand]
@@ -33,7 +33,7 @@ namespace ClientApp.Viewmodels
         public async Task LogoutAsync()
         {
             SecureStorage.Remove("auth_token");
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync("//MainPage");
         }
 
     }

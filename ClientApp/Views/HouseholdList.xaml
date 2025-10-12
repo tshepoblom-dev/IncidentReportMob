@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ClientApp.Views.HouseholdList"
+             xmlns:vm="clr-namespace:ClientApp.Viewmodels"
+             x:DataType="vm:HouseholdListViewmodel"
+             Title="My Households">
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Button Text="➕ Add Household"
+                Command="{Binding AddHouseholdCommand}"
+                BackgroundColor="#2563eb"
+                TextColor="White"
+                CornerRadius="10" />
+
+        <CollectionView ItemsSource="{Binding Households}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10" Margin="0,10,0,0"
+                           BorderColor="#ddd" CornerRadius="12">
+                        <!--GestureRecognizers="{Binding Source={x:Reference Name=RootPage}}">-->
+                        <VerticalStackLayout>
+                 <!--           <Label Text="{Binding HouseholdMember.HeadOfHouseholdName}"
+                                   FontAttributes="Bold" FontSize="18" />
+                            <Label Text="{Binding HouseholdMember.Address}" FontSize="13" />
+                            <Label Text="{Binding NumberOfMembers, StringFormat='Members: {0}'}"
+                                   FontSize="13" />-->
+                        </VerticalStackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HouseholdListViewmodel}}, Path=ViewHouseholdCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

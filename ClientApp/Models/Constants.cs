@@ -8,6 +8,6 @@ namespace ClientApp.Models
 {
     public static class Constants
     {
-        public const string URL = "https://cfabc616d907.ngrok-free.app";
+        public const string URL = "https://dab2705a126c.ngrok-free.app";
     }
 }

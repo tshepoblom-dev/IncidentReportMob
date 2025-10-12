@@ -38,18 +38,18 @@ namespace ClientApp
                     }
                     else
                     {
-                        await Shell.Current.GoToAsync("//Login");
+                        await Shell.Current.GoToAsync("//MainPage");
                     }
                 }
                 else
                 {
-                    await Shell.Current.GoToAsync("//Login");
+                    await Shell.Current.GoToAsync("//MainPage");
                 }
             }
             catch (Exception ex)
             {
                 // Handle exceptions (e.g., log them)
-                await Shell.Current.GoToAsync("//Login");
+                await Shell.Current.GoToAsync("//MainPage");
             }
         }
     }

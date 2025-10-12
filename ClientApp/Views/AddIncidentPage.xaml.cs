@@ -4,15 +4,15 @@ namespace ClientApp.Views;
 
 public partial class AddIncidentPage : ContentPage
 {
-	public AddIncidentPage(AddIncidentViewmodel vm)
-	{
-		BindingContext = vm;
-		InitializeComponent();
-		// Subscribe to StepChanged if you raise an event or bind to Step property changes
-		this.BindingContextChanged += AddIncidentPage_BindingContextChanged;
-	}
+    public AddIncidentPage(AddIncidentViewmodel vm)
+    {
+        BindingContext = vm;
+        InitializeComponent();
+        // Subscribe to StepChanged if you raise an event or bind to Step property changes
+        //	this.BindingContextChanged += AddIncidentPage_BindingContextChanged;
+    }
 
-    private void AddIncidentPage_BindingContextChanged(object? sender, EventArgs e)
+  /*  private void AddIncidentPage_BindingContextChanged(object? sender, EventArgs e)
     {
         if (BindingContext is Viewmodels.AddIncidentViewmodel vm)
         {
@@ -52,7 +52,8 @@ public partial class AddIncidentPage : ContentPage
             1 => Step2Frame,
             2 => Step3Frame,
             3 => Step4Frame,
+            4 => Step5Frame,
             _ => null
         };
-    }
+    }*/
 }

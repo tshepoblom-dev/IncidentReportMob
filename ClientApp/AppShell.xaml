@@ -8,14 +8,13 @@
     Shell.FlyoutBehavior="Disabled"
     Title="ClientApp">
 
-     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <ShellContent Title="Home" Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}"/>
 
+    <ShellContent Route="Dashboard" ContentTemplate="{DataTemplate views:Dashboard}"/>
     <ShellContent Route="IncidentList" ContentTemplate="{DataTemplate views:IncidentList}" />
     <ShellContent Route="IncidentDetails" ContentTemplate="{DataTemplate views:IncidentDetails}" />
-    <ShellContent Route="Dashboard" ContentTemplate="{DataTemplate views:Dashboard}"/>
     <ShellContent Route="AddIncidentPage" ContentTemplate="{DataTemplate views:AddIncidentPage}"/>
-
+    <ShellContent Route="HouseholdList" ContentTemplate="{DataTemplate views:HouseholdList}"/>
+    <ShellContent Route="HouseholdDetailsPage" ContentTemplate="{DataTemplate views:HouseholdDetailsPage}"/>
+    <ShellContent Route="AddHouseholdPage" ContentTemplate="{DataTemplate views:AddHouseholdPage}"/>    
 </Shell>

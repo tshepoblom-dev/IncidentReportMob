@@ -29,6 +29,8 @@ namespace ClientApp
             builder.Services.AddTransient<IncidentDetailsViewmodel>();
             builder.Services.AddTransient<AddIncidentPage>();
             builder.Services.AddTransient<AddIncidentViewmodel>();
+            builder.Services.AddTransient<HouseholdList>();
+            builder.Services.AddTransient<HouseholdListViewmodel>();
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
